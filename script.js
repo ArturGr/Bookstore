@@ -1,17 +1,19 @@
 const DATA_ARRAY = [];
 let myDataLocal = [];
+const FAVORITE_CHECKBOX_REF = document.getElementById("checkboxID0");
+const MAIN_CONTAINER_REF = document.getElementById("main_container");
 
 function init() {
-    data_import();
-    checking_data();
-    template_main_container();
-    template_section_book_title();
-    template_section_book_img();
-    template_section_book_details();
-    template_section_book_comments();
+    dataImport();
+    checkingData();
+    mainContainer();
+    sectionBookTitle();
+    sectionBookImg();
+    sectionBookDetails();
+    sectionBookComments();
 }
 
-function data_import() {
+function dataImport() {
     getFromLocalStorage();
     if (myDataLocal.length > 0) {
         for (let i = 0; i < myDataLocal.length; i++) {
@@ -24,9 +26,80 @@ function data_import() {
     }
 }
 
-function checking_data() {
+function checkingData() {
     if (DATA_ARRAY.length == 0) {
         return console.log("Error: data array is empty.")
+    }
+}
+
+function mainContainer() {
+    const MAIN_CONTAINER_REF = document.getElementById("main_container");
+    MAIN_CONTAINER_REF.innerHTML = "";
+    for (let i = 0; i < DATA_ARRAY.length; i++) {
+        MAIN_CONTAINER_REF.innerHTML += BOOK_WINDOW_TEMPLATE(i);
+    }
+}
+
+function sectionBookTitle() {
+    for (let i = 0; i < DATA_ARRAY.length; i++) {
+        let section_book_title_ref = document.getElementById(`book_title_id${i}`);
+        section_book_title_ref.innerHTML = "";
+        section_book_title_ref.innerHTML += BOOK_TITLE(i);
+    }
+}
+
+function sectionBookImg() {
+    for (let i = 0; i < DATA_ARRAY.length; i++) {
+        let section_book_img_ref = document.getElementById(`book_img_id${i}`);
+        section_book_img_ref.innerHTML = "";
+        section_book_img_ref.innerHTML += BOOK_IMG();
+    }
+}
+
+function sectionBookDetails() {
+    for (let i = 0; i < DATA_ARRAY.length; i++) {
+        let section_book_details_ref = document.getElementById(`book_details_id${i}`);
+        section_book_details_ref.innerHTML = "";
+        section_book_details_ref.innerHTML += LikesForSectionBookDetails(i);
+        tableForSectionBookDetails(i);
+    }
+}
+
+function LikesForSectionBookDetails(index) {
+    let favIcon;
+    if (DATA_ARRAY[index].liked) {
+        favIcon = UNLIKE_ICON_TEMPLATE(index);
+    } else {
+        favIcon = LIKE_ICON_TEMPLATE(index);
+    }
+    return BOOK_DETAILS_CONTENT_TEMPLATE(
+        DATA_ARRAY[index].price,
+        DATA_ARRAY[index].likes,
+        favIcon
+    );
+}
+
+function tableForSectionBookDetails(index) {
+    const section_book_details_table_ref = document.getElementById(`book_details_id${index}`);
+    section_book_details_table_ref.innerHTML += TABLE_BOOK_DETAILS(index);
+}
+
+function sectionBookComments() {
+    for (let i = 0; i < DATA_ARRAY.length; i++) {
+        let section_book_comments_ref = document.getElementById(`book_comments_id${i}`);
+        section_book_comments_ref.innerHTML = "";
+        section_book_comments_ref.innerHTML += BOOK_COMMENTS(i);
+        tableForSectionBookComments(i);
+    }
+}
+
+function tableForSectionBookComments(index) {
+    const section_book_comments_table_ref = document.getElementById(`book_comments_table_id${index}`);
+    section_book_comments_table_ref.innerHTML = "";
+    section_book_comments_table_ref.innerHTML += BOOK_COMMENTS_TABLE(index);
+    for (let i = 0; i < DATA_ARRAY[index].comments.length; i++) {
+        let section_comments_table_ref = document.getElementById(`comment_table_id${index}`)
+        section_comments_table_ref.innerHTML += BOOK_COMMENTS_TABLE_BODY(index, i);
     }
 }
 
@@ -41,7 +114,7 @@ function sending_comment(index) {
     });
     COMMENT.value = "";
     saveData();
-    template_table_for_section_book_comments(index);
+    tableForSectionBookComments(index);
 }
 
 function saveData() {
@@ -69,7 +142,7 @@ function like(index) {
     DATA_ARRAY[index].liked = true;
     DATA_ARRAY[index].likes += 1;
     saveData();
-    template_section_book_details();
+    sectionBookDetails();
 }
 
 function unlike(index) {
@@ -80,7 +153,7 @@ function unlike(index) {
         document.getElementById(`id${index}`).style.display = "none";
     }
     saveData();
-    template_section_book_details();
+    sectionBookDetails();
 }
 
 function MaxValue(value) {
@@ -92,7 +165,6 @@ function MaxValue(value) {
     }
 }
 
-const FAVORITE_CHECKBOX_REF = document.getElementById("checkboxID0");
 FAVORITE_CHECKBOX_REF.addEventListener('change', favorite_data_filter);
 
 function favorite_data_filter() {
@@ -109,7 +181,6 @@ function favorite_data_filter() {
     }
 }
 
-const MAIN_CONTAINER_REF = document.getElementById("main_container");
 MAIN_CONTAINER_REF.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         if (event.target.tagName === 'INPUT' && event.target.id.startsWith('comment_input_id')) {
