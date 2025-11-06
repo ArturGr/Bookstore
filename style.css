@@ -12,29 +12,31 @@
     --blue-input-placeholder: #6E95A3;
 }
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     scroll-behavior: smooth;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-hide{
+hide {
     display: none;
 }
 
 html {
     scroll-behavior: smooth;
-    body{
+
+    body {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
     }
-    div.checkbox{
-        display: flex;       
+
+    div.checkbox {
+        display: flex;
         justify-content: center;
         gap: 8px;
         color: var(--white);
@@ -42,12 +44,14 @@ html {
         padding-left: 12px;
         width: 100%;
     }
-    main{
+
+    main {
         background-color: var(--blue-main);
         display: flex;
-        flex-grow: 1;            
-        justify-content: center;    
-        div.wrapper{
+        flex-grow: 1;
+        justify-content: center;
+
+        div.wrapper {
             padding: 24px 140px;
             max-width: 1440px;
             width: 100%;
@@ -58,15 +62,16 @@ html {
             justify-content: center;
             align-items: center;
             justify-items: center;
-        }               
+        }
     }
-    h1{
+
+    h1 {
         text-align: center;
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 48px;                             
+        font-size: 48px;
         font-weight: bold;
         color: var(--white);
-    }  
+    }
 }
 
 header {
@@ -75,8 +80,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0px 140px;                            
+    padding: 0px 140px;
     flex-shrink: 0;
+
     div.wrapper {
         width: 100%;
         max-width: 1440px;
@@ -87,85 +93,90 @@ header {
         gap: 10px;
         justify-content: flex-start;
         align-items: center;
+
         .logo {
             img {
                 height: 64px;
-                background-color: var(--blue-header);                       
+                background-color: var(--blue-header);
             }
         }
     }
 }
 
 footer {
-    height: 144px;                                  
+    height: 144px;
     background-color: var(--blue-header);
-    padding: 0px 140px;                        
+    padding: 0px 140px;
+
     div.wrapper {
         width: 100%;
         max-width: 1440px;
-        }
     }
+}
 
 @media (min-width: 768px) and (max-width: 1280.9px) {
-html{
-    main{
-        div.wrapper{
-            padding: 24px 46px;
-            grid-template-columns: repeat(2, auto);
-            gap: 26px;
-        }                            
-    }
-
-    h1{
-        font-size: 38px;                                
-    }
-}
-
-header {
-    height: 112px;                                  
-    padding: 0px 24px;
-    div.wrapper {
-        .logo {
-            img {
-                height: 46px;
+    html {
+        main {
+            div.wrapper {
+                padding: 24px 46px;
+                grid-template-columns: repeat(2, auto);
+                gap: 26px;
             }
         }
-    }                                                
-}
 
-footer {
-    height: 144px;                                  
-    padding: 0px 24px;                             
-    }  
-}
-
-@media (max-width: 767.99px) {  
-html{
-    main{
-        div.wrapper{
-            padding: 10px 10px;
-            grid-template-columns: repeat(1, 1fr);
-        }                            
+        h1 {
+            font-size: 38px;
+        }
     }
-    h1{
-        display: none;                               
-    }
-}
 
-header {
-    height: 64px;              
-    padding: 0px 10px;
-    div.wrapper {
-        .logo {
-            img {
-                height: 36px;
+    header {
+        height: 112px;
+        padding: 0px 24px;
+
+        div.wrapper {
+            .logo {
+                img {
+                    height: 46px;
+                }
             }
         }
-    }            
+    }
+
+    footer {
+        height: 144px;
+        padding: 0px 24px;
+    }
 }
 
-footer {
-    height: 86px;                                 
-    padding: 0px 10px;                             
+@media (max-width: 767.99px) {
+    html {
+        main {
+            div.wrapper {
+                padding: 10px 10px;
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        h1 {
+            display: none;
+        }
+    }
+
+    header {
+        height: 64px;
+        padding: 0px 10px;
+
+        div.wrapper {
+            .logo {
+                img {
+                    height: 36px;
+                }
+            }
+        }
+    }
+
+    footer {
+        height: 86px;
+        padding: 0px 10px;
     }
 }
