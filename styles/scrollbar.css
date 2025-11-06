@@ -1,13 +1,13 @@
-div.book_window::-webkit-scrollbar, .table::-webkit-scrollbar{
+div.book_window::-webkit-scrollbar, .table::-webkit-scrollbar, html::-webkit-scrollbar{
   width: 4px;
 }
 
-div.book_window::-webkit-scrollbar-track, .table::-webkit-scrollbar-track{
+div.book_window::-webkit-scrollbar-track, .table::-webkit-scrollbar-track, html::-webkit-scrollbar-track{
   box-shadow: inset 0 0 5px grey;
   border-radius: 8px;
 }
 
-div.book_window::-webkit-scrollbar-thumb, .table::-webkit-scrollbar-thumb{
+div.book_window::-webkit-scrollbar-thumb, .table::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb{
   background: var(--blue-section-separator);
   border-radius: 8px;
 }
