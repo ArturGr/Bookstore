@@ -46,6 +46,7 @@ div.book_window {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
+        min-height: 180px;
 
         div {
             display: flex;
