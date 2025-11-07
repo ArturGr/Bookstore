@@ -1,16 +1,21 @@
 const DATA_ARRAY = [];
 let myDataLocal = [];
+let checkboxStatus;
 const FAVORITE_CHECKBOX_REF = document.getElementById("checkboxID0");
 const MAIN_CONTAINER_REF = document.getElementById("main_container");
 
 function init() {
     dataImport();
     checkingData();
+    setInitialCheckboxState();
     mainContainer();
     sectionBookTitle();
     sectionBookImg();
     sectionBookDetails();
     sectionBookComments();
+    if (FAVORITE_CHECKBOX_REF.checked) {
+        applyFilteringLogic(); 
+    }
 }
 
 function dataImport() {
@@ -127,15 +132,17 @@ function saveData() {
 
 function saveToLocalStorage() {
     localStorage.setItem("myDataLocal", JSON.stringify(DATA_ARRAY));
+    localStorage.setItem("checkboxStatus", JSON.stringify(FAVORITE_CHECKBOX_REF.checked));
 }
 
 function getFromLocalStorage() {
     let myData = JSON.parse(localStorage.getItem("myDataLocal"));
-
+    let myCheckbox = JSON.parse(localStorage.getItem("checkboxStatus"));
     if (myData == null) {
         return;
     }
     myDataLocal = myData;
+    checkboxStatus = myCheckbox;
 }
 
 function like(index) {
@@ -165,20 +172,30 @@ function MaxValue(value) {
     }
 }
 
+function setInitialCheckboxState() {
+    if (checkboxStatus !== undefined && checkboxStatus !== null) {
+        FAVORITE_CHECKBOX_REF.checked = checkboxStatus;
+    }
+}
+
+function applyFilteringLogic() {
+    for (let i = 0; i < DATA_ARRAY.length; i++) {
+        const BOOK_ELEMENT = document.getElementById(`id${i}`);
+        if (BOOK_ELEMENT) {
+            if (FAVORITE_CHECKBOX_REF.checked && !DATA_ARRAY[i].liked) {
+                BOOK_ELEMENT.style.display = "none";
+            } else {
+                BOOK_ELEMENT.style.display = ""; 
+            }
+        }
+    }
+}
+
 FAVORITE_CHECKBOX_REF.addEventListener('change', favorite_data_filter);
 
 function favorite_data_filter() {
-    if (FAVORITE_CHECKBOX_REF.checked) {
-        for (let i = 0; i < DATA_ARRAY.length; i++) {
-            if (!DATA_ARRAY[i].liked) {
-                document.getElementById(`id${i}`).style.display = "none";
-            }
-        }
-    } else {
-        for (let i = 0; i < DATA_ARRAY.length; i++) {
-            document.getElementById(`id${i}`).style.display = "";
-        }
-    }
+    saveData(); 
+    applyFilteringLogic(); 
 }
 
 MAIN_CONTAINER_REF.addEventListener('keydown', function (event) {
