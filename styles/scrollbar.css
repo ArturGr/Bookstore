@@ -1,5 +1,9 @@
-div.book_window::-webkit-scrollbar, .table::-webkit-scrollbar, html::-webkit-scrollbar{
+div.book_window::-webkit-scrollbar, .table::-webkit-scrollbar{
   width: 4px;
+}
+
+html::-webkit-scrollbar{
+  width: 8px;
 }
 
 div.book_window::-webkit-scrollbar-track, .table::-webkit-scrollbar-track, html::-webkit-scrollbar-track{
@@ -11,3 +15,4 @@ div.book_window::-webkit-scrollbar-thumb, .table::-webkit-scrollbar-thumb, html:
   background: var(--blue-section-separator);
   border-radius: 8px;
 }
+
